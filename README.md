@@ -1,6 +1,8 @@
 # IP Rotator Proxy
 
-A Go-based HTTP/HTTPS proxy server that rotates through a pool of static IP addresses for each outgoing request.
+A Go-based HTTP/HTTPS proxy server that rotates through a configurable pool of static IP addresses for each outgoing request.
+
+![IP Rotator Demo](RotatingIp.gif)
 
 ## Features
 
