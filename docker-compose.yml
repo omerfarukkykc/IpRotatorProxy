@@ -1,0 +1,21 @@
+services:
+  # Build Linux binary and output to ./bin directory
+  build:
+    build:
+      context: .
+      dockerfile: Dockerfile.build
+    volumes:
+      - ./bin:/output
+    command: ["cp", "/output/iprotator-linux-amd64", "/output/"]
+
+  # Run the IP Rotator proxy
+  iprotator:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./config.yaml:/app/config.yaml:ro
+    restart: unless-stopped
+    network_mode: host  # Required for IP binding to work with host interfaces

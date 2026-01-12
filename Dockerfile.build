@@ -1,0 +1,17 @@
+# Builder image for compiling Linux binary
+FROM golang:1.23-alpine
+
+WORKDIR /app
+
+# Copy go mod files
+COPY go.mod go.sum ./
+RUN go mod download
+
+# Copy source code
+COPY . .
+
+# Build Linux AMD64 binary
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -ldflags="-w -s" -o /app/iprotator-linux-amd64 ./cmd/iprotator
+
+# Default command copies binary to mounted output volume
+CMD ["sh", "-c", "cp /app/iprotator-linux-amd64 /output/"]
